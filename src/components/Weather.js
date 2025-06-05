@@ -73,7 +73,9 @@ export default function Weather() {
     }
   };
 
-  function handleSearch() {
+  function handleSearch(e) {
+    e.preventDefault();
+
     search(inputRef.current.value);
 
     // inputRef.current.value = "";
@@ -81,13 +83,14 @@ export default function Weather() {
     setSearchCity("");
   }
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     search("London");
   }, []);
 
   return (
     <div className="weather">
-      <div className="search-bar">
+      <form className="search-bar" onSubmit={handleSearch}>
         <input
           ref={inputRef}
           type="text"
@@ -97,7 +100,7 @@ export default function Weather() {
         />
 
         <img src={search_icon} alt="" onClick={handleSearch} />
-      </div>
+      </form>
 
       {weatherData ? (
         <>
